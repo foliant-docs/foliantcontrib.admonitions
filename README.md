@@ -31,3 +31,20 @@ Add an admonition to your Markdown file:
 
     May be several paragraphs.
 ```
+
+### Notes for slate
+
+Slate has its own admonitions syntax of three types: `notice` (blue notes), `warning` (red warnings) and `success` (green notes). If another type is supplied, slate draws a blue note but without the "i" icon.
+
+Admonitions preprocessor transforms some of the general admonition types into slate's for convenience (so you could use `error` type to display same kind of note in both slate and mkdocs). These translations are indicated in the table below:
+
+original type | translates to
+------------- | -------------
+error         | warning
+danger        | warning
+caution       | warning
+info          | notice
+note          | notice
+tip           | notice
+hint          | notice
+
