@@ -1,3 +1,5 @@
+https://img.shields.io/pypi/v/foliantcontrib.admonitions.svg
+
 # Admonitions preprocessor for Foliant
 
 Preprocessor which tries to make admonitions syntax available for most backends.
