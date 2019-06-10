@@ -1,4 +1,4 @@
-https://img.shields.io/pypi/v/foliantcontrib.admonitions.svg
+![](https://img.shields.io/pypi/v/foliantcontrib.admonitions.svg)
 
 # Admonitions preprocessor for Foliant
 
