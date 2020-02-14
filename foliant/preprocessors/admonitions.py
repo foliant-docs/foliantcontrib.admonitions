@@ -49,6 +49,7 @@ class Preprocessor(BasePreprocessorExt):
 
     @allow_fail('Failed to process admonition. Skipping.')
     def _process_admonition(self, block):
+        self.logger.debug(f'Found admonition: \n\n{block.group(0)}')
         type_ = block.group('type').lower()
         title = block.group('title')
         lines = []

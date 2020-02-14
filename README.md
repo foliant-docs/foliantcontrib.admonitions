@@ -34,6 +34,23 @@ Add an admonition to your Markdown file:
     May be several paragraphs.
 ```
 
+
+Currently supported backends:
+
+- `pandoc`
+- `mkdocs`*
+- `slate`
+
+\* for admonitions to work in mkdocs, add `admonition` to the `markdown_extensions` section of your mkdocs.yml config:
+
+```yaml
+backend_config:
+    mkdocs:
+        mkdocs.yml:
+            markdown_extensions:
+                - admonition
+```
+
 ### Notes for slate
 
 Slate has its own admonitions syntax of three types: `notice` (blue notes), `warning` (red warnings) and `success` (green notes). If another type is supplied, slate draws a blue note but without the "i" icon.
