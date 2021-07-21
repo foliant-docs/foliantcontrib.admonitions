@@ -1,4 +1,4 @@
-![](https://img.shields.io/pypi/v/foliantcontrib.admonitions.svg)
+[![](https://img.shields.io/pypi/v/foliantcontrib.admonitions.svg)](https://pypi.org/project/foliantcontrib.admonitions/)  [![](https://img.shields.io/github/v/tag/foliant-docs/foliantcontrib.admonitions.svg?label=GitHub)](https://github.com/foliant-docs/foliantcontrib.admonitions)
 
 # Admonitions preprocessor for Foliant
 

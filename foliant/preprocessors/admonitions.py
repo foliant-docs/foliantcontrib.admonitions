@@ -2,8 +2,8 @@
 
 import re
 
-from foliant.preprocessors.utils.preprocessor_ext import (BasePreprocessorExt,
-                                                          allow_fail)
+from foliant.preprocessors.utils.preprocessor_ext import BasePreprocessorExt
+from foliant.preprocessors.utils.preprocessor_ext import allow_fail
 
 
 def pandoc(type_: str,
@@ -13,7 +13,7 @@ def pandoc(type_: str,
     header = title if title is not None else type_
     if header:
         template = '> **{header}**\n>\n' + template
-    body = '\n'.join(['> ' + l for l in lines])
+    body = '\n'.join(['> ' + ln for ln in lines])
     return template.format(header=header, body=body)
 
 
@@ -54,14 +54,14 @@ class Preprocessor(BasePreprocessorExt):
         title = block.group('title')
         lines = []
 
-        for l in block.group('content').split('\n'):
-            if not l:
+        for ln in block.group('content').split('\n'):
+            if not ln:
                 # break
                 lines.append('')
-            if l.startswith('    '):
-                lines.append(l[4:])
+            if ln.startswith('    '):
+                lines.append(ln[4:])
             else:  # starts with tab
-                lines.append(l[1:])
+                lines.append(ln[1:])
 
         while lines[-1] == '':  # remove empty lines at the end
             lines.pop()

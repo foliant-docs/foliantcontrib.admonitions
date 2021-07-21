@@ -16,7 +16,7 @@ setup(
     description=SHORT_DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
-    version='1.0.0',
+    version='1.0.1',
     author='Daniil Minukhin',
     author_email='ddddsa@gmail.com',
     url='https://github.com/foliant-docs/foliantcontrib.admonitions',
@@ -25,7 +25,7 @@ setup(
     platforms='any',
     install_requires=[
         'foliant>=1.0.8',
-        'foliantcontrib.utils.preprocessor_ext>=1.0.0',
+        'foliantcontrib.utils>=1.0.2',
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
