@@ -6,7 +6,8 @@ from foliant.preprocessors.utils.preprocessor_ext import BasePreprocessorExt
 from foliant.preprocessors.utils.preprocessor_ext import allow_fail
 
 
-def pandoc(type_: str,
+def pandoc(form: str,
+           type_: str,
            title: str,
            lines: list):
     template = "{body}\n\n"
@@ -17,7 +18,8 @@ def pandoc(type_: str,
     return template.format(header=header, body=body)
 
 
-def slate(type_: str,
+def slate(form: str,
+          type_: str,
           title: str,
           lines: list):
     type_to_class = {'error': 'warning',
@@ -33,10 +35,26 @@ def slate(type_: str,
     return template.format(class_=class_, body=body)
 
 
+def hugo(form: str,
+         type_: str,
+         title: str,
+         lines: list):
+    type_to_form = {'!!!': 'standard',
+                    '???': 'collapse',
+                    '???+': 'collapse_plus'}
+    form = type_to_form.get(form, form)
+    template = '{pref} admonition form="{form}" type="{type_}" title="{title}" {suf}{body}\n\n{pref} /admonition {suf}\n\n'
+    body = '\n'.join(lines)
+    pref = '{{%'
+    suf = '%}}'
+    return template.format(form=form, type_=type_, title=title, body=body, pref=pref, suf=suf)
+
+
 class Preprocessor(BasePreprocessorExt):
     backend_processors = {
         'pandoc': pandoc,
         'slate': slate,
+        'hugo': hugo,
     }
 
     def __init__(self, *args, **kwargs):
@@ -45,11 +63,12 @@ class Preprocessor(BasePreprocessorExt):
         self.logger = self.logger.getChild('admonitions')
 
         self.logger.debug(f'Preprocessor inited: {self.__dict__}')
-        self.pattern = re.compile(r'!!! (?P<type>\w+)(?: +"(?P<title>.*)")?\n(?P<content>(?:(?:    |\t).*\n|\n)+)')
+        self.pattern = re.compile(r'(?P<form>(\!{3})|(\?{3})|(\?{3}\+))\s(?P<type>\w+)(?: +"(?P<title>.*)")?\n(?P<content>(?:(?:    |\t).*\n|\n)+)')
 
     @allow_fail('Failed to process admonition. Skipping.')
     def _process_admonition(self, block):
         self.logger.debug(f'Found admonition: \n\n{block.group(0)}')
+        form = block.group('form')
         type_ = block.group('type').lower()
         title = block.group('title')
         lines = []
@@ -63,11 +82,13 @@ class Preprocessor(BasePreprocessorExt):
             else:  # starts with tab
                 lines.append(ln[1:])
 
+        # lines._process_admonition()
+
         while lines[-1] == '':  # remove empty lines at the end
             lines.pop()
 
         processor = self.backend_processors[self.context['backend']]
-        return processor(type_, title, lines)
+        return processor(form, type_, title, lines)
 
         self.context['target']
 
